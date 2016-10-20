@@ -34,6 +34,12 @@
             "php app/console claroline:update -vvv",
             "composer disable-maintenance"
         ],
+    "sync-docker": [
+      "composer fetch-dev",
+      "composer build-docker",
+            "php app/console claroline:update -vvv",
+            "composer disable-maintenance"
+        ],
         "fetch": [
             "composer install --prefer-dist --no-dev --optimize-autoloader",
             "npm install",
@@ -50,6 +56,12 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
             "npm run themes",
             "npm run webpack"
+    ],
+    "build-docker": [
+      "Claroline\\CoreBundle\\Library\\Installation\\Refresher::deleteCache",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+      "npm run themes"
         ],
         "disable-maintenance": [
             "Claroline\\CoreBundle\\Library\\Maintenance\\MaintenanceHandler::disableMaintenance"
