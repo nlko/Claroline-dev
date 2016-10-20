@@ -1,99 +1,101 @@
 {
-    "name": "claroline/claroline",
-    "description": "Claroline Connect",
-    "license": "GPL-3.0+",
-    "require": {
-        "php": ">=5.5",
-        "claroline/distribution": "dev-master"
-    },
-    "require-dev": {
-        "fabpot/php-cs-fixer": "^1.10",
-        "mikey179/vfsStream": "~1.5",
-        "phpunit/phpunit": "~4.6",
-        "symfony/phpunit-bridge": "*",
-        "mockery/mockery": "^0.9.4",
-        "phpmd/phpmd": "@stable",
-        "stefk/md": "dev-master"
-    },
-    "scripts": {
-        "fast-install" : [
-            "php scripts/check.php",
-            "php app/console doctrine:database:create --if-not-exists",
-            "php vendor/bin/doctrine dbal:import claroline.sql -vvv",
-            "php app/console assets:install web --symlink"
-        ],
-        "sync": [
-            "composer fetch",
-            "composer build",
-            "php app/console claroline:update --env=prod",
-            "composer disable-maintenance"
-        ],
-        "sync-dev": [
-            "composer fetch-dev",
-            "composer build",
-            "php app/console claroline:update -vvv",
-            "composer disable-maintenance"
-        ],
-    "sync-docker": [
+  "name": "claroline/claroline",
+  "description": "Claroline Connect",
+  "license": "GPL-3.0+",
+  "require": {
+    "php": ">=5.5",
+    "claroline/distribution": "dev-master"
+  },
+  "require-dev": {
+    "fabpot/php-cs-fixer": "^1.10",
+    "mikey179/vfsStream": "~1.5",
+    "phpunit/phpunit": "~4.6",
+    "symfony/phpunit-bridge": "*",
+    "mockery/mockery": "^0.9.4",
+    "phpmd/phpmd": "@stable",
+    "stefk/md": "dev-master"
+  },
+  "scripts": {
+    "fast-install": [
+      "php scripts/check.php",
+      "php app/console doctrine:database:create --if-not-exists",
+      "php vendor/bin/doctrine dbal:import claroline.sql -vvv",
+      "php app/console assets:install web --symlink"
+    ],
+    "sync": [
+      "composer fetch",
+      "composer build",
+      "php app/console claroline:update --env=prod",
+      "composer disable-maintenance"
+    ],
+    "sync-dev": [
       "composer fetch-dev",
+      "composer build",
+      "php app/console claroline:update -vvv",
+      "composer disable-maintenance"
+    ],
+    "sync-docker": [
+      "composer fetch-docker",
       "composer build-docker",
-            "php app/console claroline:update -vvv",
-            "composer disable-maintenance"
-        ],
-        "fetch": [
-            "composer install --prefer-dist --no-dev --optimize-autoloader",
-            "npm install",
-            "npm run bower"
-        ],
-        "fetch-dev": [
-            "composer install --prefer-source",
-            "npm install",
-            "npm run bower"
-        ],
-        "build": [
-            "Claroline\\CoreBundle\\Library\\Installation\\Refresher::deleteCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "npm run themes",
-            "npm run webpack"
+      "php app/console claroline:update -vvv",
+      "composer disable-maintenance"
+    ],
+    "fetch": [
+      "composer install --prefer-dist --no-dev --optimize-autoloader",
+      "npm install",
+      "npm run bower"
+    ],
+    "fetch-dev": [
+      "composer install --prefer-source",
+      "npm install",
+      "npm run bower"
+    ],
+    "fetch-docker": [
+      "composer install --prefer-source"
+    ],
+    "build": [
+      "Claroline\\CoreBundle\\Library\\Installation\\Refresher::deleteCache",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+      "npm run themes",
+      "npm run webpack"
     ],
     "build-docker": [
       "Claroline\\CoreBundle\\Library\\Installation\\Refresher::deleteCache",
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-      "npm run themes"
-        ],
-        "disable-maintenance": [
-            "Claroline\\CoreBundle\\Library\\Maintenance\\MaintenanceHandler::disableMaintenance"
-        ],
-        "bundles": [
-            "Claroline\\BundleRecorder\\ScriptHandler::buildBundleFile"
-        ],
-        "pre-install-cmd": [
-            "php scripts/check.php",
-            "php scripts/save-repo.php"
-        ],
-        "post-install-cmd": [
-            "composer bundles"
-        ],
-        "pre-update-cmd": [
-            "php scripts/check.php",
-            "php scripts/save-repo.php",
-            "Claroline\\CoreBundle\\Library\\Maintenance\\MaintenanceHandler::enableMaintenance"
-        ],
-        "post-update-cmd": [
-            "composer bundles"
-        ]
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "config": {
-        "github-protocols": ["https", "git", "ssh"],
-        "process-timeout": 3600
-    },
-    "extra": {
-        "symfony-app-dir": "app",
-        "symfony-web-dir": "web",
-        "symfony-assets-install": "symlink"
-    }
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets"
+    ],
+    "disable-maintenance": [
+      "Claroline\\CoreBundle\\Library\\Maintenance\\MaintenanceHandler::disableMaintenance"
+    ],
+    "bundles": [
+      "Claroline\\BundleRecorder\\ScriptHandler::buildBundleFile"
+    ],
+    "pre-install-cmd": [
+      "php scripts/check.php",
+      "php scripts/save-repo.php"
+    ],
+    "post-install-cmd": [
+      "composer bundles"
+    ],
+    "pre-update-cmd": [
+      "php scripts/check.php",
+      "php scripts/save-repo.php",
+      "Claroline\\CoreBundle\\Library\\Maintenance\\MaintenanceHandler::enableMaintenance"
+    ],
+    "post-update-cmd": [
+      "composer bundles"
+    ]
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "github-protocols": ["https", "git", "ssh"],
+    "process-timeout": 3600
+  },
+  "extra": {
+    "symfony-app-dir": "app",
+    "symfony-web-dir": "web",
+    "symfony-assets-install": "symlink"
+  }
 }
